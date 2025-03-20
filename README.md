@@ -47,23 +47,24 @@ python main.py
 ## Example Programs
 
 ### Simple Arithmetic
-```python
-var x = 5;
-var y = 3;
-print(x + y);  // Prints: 8
+```javascript
+let x = 5;
+let y = 3;
+print x + y;  // Prints: 8
 ```
 
 ### Fibonacci Sequence
-```python
-fun fibonacci(n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
+```javascript
+function fibonacci(n) {
+  if (n <= 1) {
+    return n;
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-var i = 0;
-while (i < 10) {
-    print(fibonacci(i));
-    i = i + 1;
+// Print the first 10 Fibonacci numbers
+for (let i = 0; i < 10; i = i + 1) {
+  print fibonacci(i);
 }
 ```
 
