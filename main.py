@@ -13,15 +13,20 @@ def run_file(file_path: str) -> None:
         run(file.read())
 
 def run_prompt() -> None:
-    interpreter = VirtualMachine()
+    print("Welcome to the Simple Language Interpreter")
+    print("Type 'exit' to quit")
+    print("Enter your code below:")
 
     while True:
         try:
             line = input("> ")
-            if not line:
+            if line.lower() == 'exit':
                 break
+            if not line:
+                continue
             run(line)
         except KeyboardInterrupt:
+            print("\nGoodbye!")
             break
         except Exception as e:
             print(f"Error: {e}")

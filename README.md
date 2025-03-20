@@ -1,109 +1,98 @@
-# Simple Programming Language Compiler
+# Simple Language Interpreter
 
-A basic compiler implementation for a small programming language with support for variables, functions, loops, conditionals, and basic operations.
+A simple programming language interpreter implemented in Python. This project demonstrates the fundamental concepts of compiler design and implementation.
 
-## Language Features
+## Features
 
-- **Data Types**: Numbers, strings, booleans
-- **Variables**: `let` declarations with assignments
-- **Control Flow**: `if/else` statements, `while` loops, `for` loops
-- **Functions**: Function declarations, recursive functions
-- **Operators**: Arithmetic, comparison, logical operations
-- **I/O**: Basic `print` functionality
+- Lexical Analysis (Tokenization)
+- Syntax Analysis (Parsing)
+- Semantic Analysis
+- Intermediate Code Generation
+- Virtual Machine Execution
 
-## Example Code
+### Language Features
 
-```
-// Factorial function
-function factorial(n) {
-  if (n <= 1) {
-    return 1;
-  }
-  return n * factorial(n - 1);
-}
+- Variables and assignments
+- Basic arithmetic operations (+, -, *, /)
+- Comparison operators (==, !=, >, >=, <, <=)
+- Logical operators (and, or, not)
+- Control flow (if/else, while loops)
+- Function definitions and calls
+- Built-in print function
 
-// Calculate factorial of 5
-let result = factorial(5);
-print result; // Should print 120
-```
+## Project Structure
 
-## Compiler Components
+- `main.py` - Main entry point and REPL
+- `lexer.py` - Tokenizes source code
+- `parser.py` - Parses tokens into AST
+- `semantic_analyzer.py` - Performs semantic analysis
+- `ir_generator.py` - Generates intermediate code
+- `virtual_machine.py` - Executes intermediate code
+- `examples/` - Example programs
 
-The compiler is structured into the following components:
+## Usage
 
-1. **Lexer (`lexer.py`)**: Converts source code into tokens
-2. **Parser (`parser.py`)**: Transforms tokens into an abstract syntax tree (AST)
-3. **Interpreter (`interpreter.py`)**: Executes the AST
+### Running a File
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.6+
-
-### Running the Compiler
-
-To run the interpreter with a file:
-
-```
-python main.py examples/factorial.txt
+```bash
+python main.py examples/fibonacci.txt
 ```
 
-To start an interactive REPL session:
+### Interactive REPL
 
-```
+```bash
 python main.py
 ```
 
-## Language Syntax
+## Example Programs
 
-### Variable Declaration
-
-```
-let name = "value";
-```
-
-### Conditionals
-
-```
-if (condition) {
-  // code
-} else {
-  // code
-}
+### Simple Arithmetic
+```python
+var x = 5;
+var y = 3;
+print(x + y);  // Prints: 8
 ```
 
-### Loops
-
-```
-while (condition) {
-  // code
+### Fibonacci Sequence
+```python
+fun fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-for (let i = 0; i < 10; i = i + 1) {
-  // code
-}
-```
-
-### Functions
-
-```
-function name(param1, param2) {
-  // code
-  return value;
+var i = 0;
+while (i < 10) {
+    print(fibonacci(i));
+    i = i + 1;
 }
 ```
 
 ## Implementation Details
 
-- Recursive descent parser with Pratt parsing for expressions
-- Environment-based variable scoping
-- Support for closures and higher-order functions
-- Error reporting with line numbers
+1. **Lexical Analysis**: Converts source code into tokens
+2. **Syntax Analysis**: Builds an Abstract Syntax Tree (AST)
+3. **Semantic Analysis**: Validates types and program correctness
+4. **Intermediate Code Generation**: Creates a sequence of instructions
+5. **Virtual Machine**: Executes the intermediate code
 
-## Future Enhancements
+## Error Handling
 
-- Type checking and semantic analysis
-- Optimization passes
-- Bytecode or machine code generation
-- Additional built-in functions and standard library
+The interpreter provides clear error messages for:
+- Syntax errors
+- Type errors
+- Undefined variables
+- Runtime errors
+
+## Future Improvements
+
+- [ ] Add more built-in functions
+- [ ] Support for arrays and dictionaries
+- [ ] Object-oriented features
+- [ ] Standard library
+- [ ] Optimization passes
+- [ ] Better error reporting
+- [ ] Debugging support
+
+## License
+
+MIT License
