@@ -4,36 +4,34 @@ import sys
 from typing import List
 from lexer import Lexer, Token
 from parser import Parser, Stmt
-from interpreter import Interpreter
 from semantic_analyzer import SemanticAnalyzer
+from ir_generator import IRGenerator, IRInstruction
+from virtual_machine import VirtualMachine
 
 def run_file(file_path: str) -> None:
     with open(file_path, 'r') as file:
         run(file.read())
 
 def run_prompt() -> None:
-    interpreter = Interpreter()
+    interpreter = VirtualMachine()
 
     while True:
         try:
             line = input("> ")
             if not line:
                 break
-            run(line, interpreter)
+            run(line)
         except KeyboardInterrupt:
             break
         except Exception as e:
             print(f"Error: {e}")
 
-def run(source: str, interpreter: Interpreter = None) -> None:
-    if interpreter is None:
-        interpreter = Interpreter()
-
+def run(source: str) -> None:
     # Lexical analysis: Convert source code to tokens
     lexer = Lexer(source)
     tokens: List[Token] = lexer.scan_tokens()
 
-    # Syntax analysis: Parse tokens into an AST
+    # Syntax analysis: Parse tokens into an AST (abstract syntax tree)
     parser = Parser(tokens)
     statements: List[Stmt] = parser.parse()
 
@@ -46,8 +44,24 @@ def run(source: str, interpreter: Interpreter = None) -> None:
     if not analyzer.analyze(statements):
         return
 
-    # Execute the program
-    interpreter.interpret(statements)
+    # Intermediate Code Generation (ICG)
+    ir_generator = IRGenerator()
+    instructions: List[IRInstruction] = ir_generator.generate(statements)
+
+    # Debug: Print generated instructions
+    debug_print_instructions(instructions)
+
+    # Code Generation & Execution via Virtual Machine
+    vm = VirtualMachine()
+    vm.load_instructions(instructions)
+    vm.run()
+
+def debug_print_instructions(instructions: List[IRInstruction]) -> None:
+    """Print IR instructions for debugging."""
+    print("\n===== Generated IR Instructions =====")
+    for i, instr in enumerate(instructions):
+        print(f"{i:3d}: {instr}")
+    print("====================================\n")
 
 def main() -> None:
     args = sys.argv[1:]
