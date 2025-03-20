@@ -1,0 +1,103 @@
+// Define a function to check if a number is prime
+function isPrime(n) {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n <= 3) {
+    return true;
+  }
+
+  // Check if n is divisible by 2 or 3
+  if (n / 2 == Math.floor(n / 2) || n / 3 == Math.floor(n / 3)) {
+    return false;
+  }
+
+  let i = 5;
+  while (i * i <= n) {
+    if (n / i == Math.floor(n / i) || n / (i + 2) == Math.floor(n / (i + 2))) {
+      return false;
+    }
+    i = i + 6;
+  }
+
+  return true;
+}
+
+// Simpler approach - check all factors up to sqrt(n)
+function isPrimeSimple(n) {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n == 2 || n == 3) {
+    return true;
+  }
+
+  // Check if n is even
+  if (n / 2 == Math.floor(n / 2)) {
+    return false;
+  }
+
+  // Check all odd factors
+  let i = 3;
+  while (i * i <= n) {
+    // Check if i divides n without remainder
+    let division = n / i;
+    if (division == Math.floor(division)) {
+      return false;
+    }
+    i = i + 2;
+  }
+
+  return true;
+}
+
+// Function to find all prime numbers up to n
+function findPrimes(n) {
+  let primes = 0;
+
+  for (let i = 2; i <= n; i = i + 1) {
+    // Use a simpler approach: check all factors manually
+    let isPrime = true;
+
+    // Simple primality test
+    if (i == 2 || i == 3) {
+      isPrime = true;
+    } else {
+      // Check if divisible by 2
+      if (i / 2 == Math.floor(i / 2)) {
+        isPrime = false;
+      } else {
+        // Check all odd divisors
+        let j = 3;
+        while (j * j <= i && isPrime) {
+          if (i / j == Math.floor(i / j)) {
+            isPrime = false;
+          }
+          j = j + 2;
+        }
+      }
+    }
+
+    if (isPrime) {
+      print i;
+      primes = primes + 1;
+    }
+  }
+
+  return primes;
+}
+
+// Find primes up to 30
+let startTime = clock();
+let count = findPrimes(30);
+let endTime = clock();
+
+print "Found";
+print count;
+print "prime numbers";
+
+print "Time taken:";
+print endTime - startTime;
+print "seconds";
